@@ -37,8 +37,9 @@ const ResumeAnalyzer = ({ userId }: { userId?: string }) => {
 
     setAnalyzing(true);
     try {
-      // Upload file
-      const filePath = `${userId}/${Date.now()}-${file.name}`;
+      // Upload file with UUID for unpredictable path
+      const fileId = crypto.randomUUID();
+      const filePath = `${userId}/${fileId}-${file.name}`;
       const { error: uploadError } = await supabase.storage.from("resumes").upload(filePath, file);
       if (uploadError) throw uploadError;
 
